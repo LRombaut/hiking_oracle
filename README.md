@@ -5,7 +5,7 @@ I compiled the STAN models using the CmdStanR package interface.
 
 # Data Pre-processing
 
-I compiled the data myself from the signup list and event descriptions in my hiking group's WhatsApp chat. There are 155 hikes in the data between March 2022 and June 2026. I sourced historical weather data from MeteoStat. 
+I gathered all the data myself from the signup list and event descriptions in my hiking group's WhatsApp chat. There are 155 hikes in the data between March 2022 and June 2026. I sourced historical weather data from MeteoStat. 
 
 I did some basic data quality control (data_preparation.R), and converted date and starting time of each hike from character strings to R's datetime format using the lubridate package. I exported the resulting dataframe as an RDS file for easy access in all my subsequent analyses.
 
