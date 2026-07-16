@@ -22,4 +22,17 @@ Calculating PSIS scores for model 1 showed that 4 data points had Pareto k value
 
 I used a Gamma-Poisson count model as the basis for all subsequent analyses.
 
+# Rain, Rain, Everyday!
+
+Rain was a strong candidate predictor for signups. There were 52 hikes with at least some rainfall. I used historical hourly rainfall data for the weather station closest to the hike's location from MeteoStat. I manually recorded the peak hourly precipitation in mm between the hours of 9am and 6pm for all hikes except the night hikes.
+
+I tried three different ways of modeling the effect of rain. Model 1 (m3.1) uses a binary 'rain' (>0 mm) vs. 'no rain' (0 mm) indicator variable. Model 2 (m3.2) uses separate indicator variables for 'light rain' (<= 0.5 mm) and 'heavy rain' (> 0.5 mm). Model 3 (m3.3) treats peak hourly precipitation in mm as a continuous predictor in the regression model.
+
+| model | WAIC  | SE    | dWAIC | dSE  | pWAIC | weight |
+|-------|-------|-------|-------|------|-------|--------|
+| m3.1  | 931.7 | 20.70 | 0     | NA   | 9.1   | 0.54   |
+| m3.2  | 933.1 | 20.51 | 1.4   | 0.68 | 9.5   | 0.27   |
+| m3.3  | 933.8 | 21.02 | 2.1   | 3.43 | 8.3   | 0.19   |
+
+The simplest model is the most strongly supported by the WAIC measure, and has the advantage of being the easiest to interpret. I therefore decided to use a binary indicator variable for rain in subsequent models. 
 
