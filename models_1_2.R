@@ -1,5 +1,6 @@
 rm(list=ls())
 library(rethinking)
+library(fdrtool)
 set.seed(497)
 
 dat <- readRDS("hikes.RDS")
@@ -14,9 +15,16 @@ d <- list(
 
 #prior predictive check 
 
+sigma <- 0.5
+theta <- sqrt(pi/2)/sigma
+1/theta #mean of halfnormal is ~0.4
+sqrt((pi - 2)/(2*theta^2)) #sd of halfnormal  
+curve(dnorm(x, mean=0, sd=0.5), from=0, to=3, ylim=c(0,1))
+curve(dhalfnorm(x, theta=theta), from=0, to=3)
+
 N <- 2000
-sigma <- rexp(N, rate=2)
-a_bar <- rnorm(N, mean=3, sd=0.5)
+sigma <- rhalfnorm(N, theta=theta)
+a_bar <- rnorm(N, mean=3, sd=0.25)
 dens(sigma)
 dens(a_bar)
 
@@ -33,8 +41,8 @@ m1 <- ulam(
     signups ~ dpois(lambda),
     log(lambda) <- a[typeid],
     a[typeid] ~ dnorm(a_bar, sigma),
-    a_bar ~ dnorm(3, 0.5),
-    sigma ~ dexp(2)
+    a_bar ~ dnorm(3, 0.25),
+    sigma ~ half_normal(0, 0.5)
   ), 
   data=d, chains=4, cores=4, log_lik = TRUE
 )
@@ -55,6 +63,10 @@ sum(psis$k > 0.5)
 N <- 2000
 m1.post <- extract.samples(m1)
 m1.prior <- extract.prior(m1, n=N)
+dens(m1.prior$sigma)
+dens(m1.post$sigma, col='red', add=TRUE)
+dens(m1.prior$a_bar)
+dens(m1.post$a_bar, col='red', add=TRUE)
 a.prior <- rnorm(N, mean=m1.prior$a_bar, sd=m1.prior$sigma) 
 a.post <- rnorm(N, mean=m1.post$a_bar, sd=m1.post$sigma)
 lambda.prior <- exp(a.prior)
@@ -87,7 +99,7 @@ abline(a=0, b=1, lty=2)
 
 #prior predictive check 
 
-curve(dexp(x,rate=0.5), from=0, to=5, ylim=c(0,1))
+curve(dexp(x, rate=0.5), from=0, to=6, ylim=c(0,0.5))
 
 counts.p <- rpois(1e4, lambda=exp(3))
 counts.gp <- rgampois(1e4, mu=exp(3), scale=3.42)
@@ -102,8 +114,8 @@ m2 <- ulam(
     signups ~ dgampois(lambda, phi),
     log(lambda) <- a[typeid],
     a[typeid] ~ dnorm(a_bar, sigma),
-    a_bar ~ dnorm(3, 0.5),
-    sigma ~ dexp(2),
+    a_bar ~ dnorm(3, 0.25),
+    sigma ~ half_normal(0, 0.5),
     phi ~ dexp(0.5)
   ), 
   data=d, chains=4, cores=4, log_lik = TRUE
@@ -117,7 +129,7 @@ trankplot(m2, pars=c('a[1]','a[2]','a[3]','a[4]','a[5]','a[6]','a[7]', 'a_bar', 
 
 precis(m2, depth=2)
 levels(as.factor(dat$special_category)) 
-psis2 <- PSIS(m2, pointwise=TRUE) # no Pareto k values greater than 0.5 
+psis2 <- PSIS(m2, pointwise=TRUE) 
 
 sum(psis2$k > 0.5)
 
@@ -125,20 +137,20 @@ sum(psis2$k > 0.5)
 N <- 2000
 m2.post <- extract.samples(m2)
 m2.prior <- extract.prior(m2, n=N)
+dens(m2.prior$a_bar)
+dens(m2.post$a_bar, col='red', add=TRUE)
+dens(m2.prior$sigma)
+dens(m2.post$sigma, col='red', add=TRUE)
+dens(m2.prior$phi)
+dens(m2.post$phi, col='red', add=TRUE)
 a.prior <- rnorm(N, mean=m2.prior$a_bar, sd=m2.prior$sigma) 
 a.post <- rnorm(N, mean=m2.post$a_bar, sd=m2.post$sigma)
 lambda.prior <- exp(a.prior)
 lambda.post <- exp(a.post)
 dens(a.prior)
 dens(a.post, col='red', add=TRUE)
-dens(lambda.prior, adj=0.5, xlim=c(0,500))
+dens(lambda.prior, adj=0.5, xlim=c(0,100))
 dens(lambda.post, adj=0.5, col="red", add=TRUE)
-
-dens(m2.prior$sigma, ylim=c(0,5))
-dens(m2.post$sigma, col="red", add=TRUE)
-
-dens(m2.prior$phi, ylim=c(0,1))
-dens(m2.post$phi, col="red", add=TRUE)
 
 a <- exp(m2.post$a)
 dens(a[,1], xlim=c(0,100), ylim=c(0,0.8))
