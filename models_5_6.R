@@ -138,20 +138,13 @@ shade(mu_PI, wlh, col=col.alpha('blue', alpha=0.2))
 
 '''Model 6 Common effect for weeks since last hike'''
 
-dow <- weekdays(dat$date)
-table(dow)
-
-for(i in 1:length(dow)){
-  dow[i] <- ifelse(dow[i] == "Sunday", 1, 0)
-}
-table(dow)
 
 d <- list(
   signups= dat$signups,
   typeid= as.numeric(as.factor(dat$special_category)),
   rain= dat$rain_level,
   weeks_last_hike= dat$date_last_hike,
-  sunday= as.integer(dow)
+  sunday= dat$dow
 )
 
 m6 <- ulam(
