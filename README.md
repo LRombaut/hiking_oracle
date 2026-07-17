@@ -30,9 +30,9 @@ I tried three different ways of modeling the effect of rain. Model 1 (m3.1) uses
 
 | model | WAIC  | SE    | dWAIC | dSE  | pWAIC | weight |
 |-------|-------|-------|-------|------|-------|--------|
-| m3.1  | 931.7 | 20.70 | 0     | NA   | 9.1   | 0.54   |
-| m3.2  | 933.1 | 20.51 | 1.4   | 0.68 | 9.5   | 0.27   |
-| m3.3  | 933.8 | 21.02 | 2.1   | 3.43 | 8.3   | 0.19   |
+| m3.1  | 931.5 | 20.48 | 0     | NA   | 8.9   | 0.57   |
+| m3.2  | 933.0 | 20.66 | 1.5   | 0.64 | 9.5   | 0.27   |
+| m3.3  | 934.1 | 21.09 | 2.6   | 3.40 | 8.4   | 0.16   |
 
 The simplest model is the most strongly supported by the WAIC measure, and has the advantage of being the easiest to interpret. I therefore decided to use a binary indicator variable for rain in subsequent models. 
 
