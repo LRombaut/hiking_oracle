@@ -15,10 +15,10 @@ The first model comparison I did was to gauge whether a Poisson count model (m1.
 
 | model | WAIC | SE  | dWAIC | dSE | pWAIC | weight |
 |-------|------|-----|-------|-----|-------|--------|
-| m2    | 932.7 | 20.83  | 0     | NA  | 7.9   | 1      |
-| m1    | 1414.9 | 122.11 | 482.2   | 104.32 | 51.1  | 0      |
+| m2    | 932.5 | 20.77  | 0     | NA  | 7.8   | 1      |
+| m1    | 1415.1 | 122.10 | 482.6   | 104.38 | 51.6  | 0      |
 
-Calculating PSIS scores for model 1 showed that 4 data points had Pareto k values greater than 0.5. There was one such outlier for model 2. 
+Calculating PSIS scores for model 1 showed that 9 data points had Pareto k values greater than 0.5. There was one such outlier for model 2. 
 
 I used a Gamma-Poisson count model as the basis for all subsequent analyses.
 
