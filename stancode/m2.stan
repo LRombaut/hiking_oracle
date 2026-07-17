@@ -11,8 +11,8 @@ parameters{
 model{
      vector[124] lambda;
     phi ~ exponential( 0.5 );
-    sigma ~ exponential( 2 );
-    a_bar ~ normal( 3 , 0.5 );
+    sigma ~ normal( 0 , 0.5 );
+    a_bar ~ normal( 3 , 0.25 );
     a ~ normal( a_bar , sigma );
     for ( i in 1:124 ) {
         lambda[i] = a[typeid[i]];
