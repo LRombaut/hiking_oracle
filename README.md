@@ -36,3 +36,16 @@ I tried three different ways of modeling the effect of rain. Model 1 (m3.1) uses
 
 The simplest model is the most strongly supported by the WAIC measure, and has the advantage of being the easiest to interpret. I therefore decided to use a binary indicator variable for rain in subsequent models. 
 
+# 'Tis the Season, Or Not...
+
+There are many reasons to expect a seasonal effect. Exams, start or end of contracts, people going on holiday- these factors (potentially) change the pool of people who are able or willing to join hikes. I tried to fit some simple models lumping different months of the year together to explore this possibility. Model 1 (m4.1) uses 6 pairs of 2 consecutive months starting from january, m4.2 4 seasons of 3 months each starting from december, m4.3 3 seasons of 4 months each starting from november, and m4.4 2 seasons of 6 months each starting from october. 
+
+| model | WAIC  | SE    | dWAIC | dSE  | pWAIC | weight |
+|-------|-------|-------|-------|------|-------|--------|
+| m3.1  | 930.8 | 20.58 | 0     | NA   | 8.6   | 0.48   |
+| m4.4  | 932.7 | 20.41 | 1.9   | 1.02 | 9.5   | 0.18   |
+| m4.3  | 933.0 | 20.02 | 2.2   | 2.44 | 10.3  | 0.16   |
+| m4.2  | 933.2 | 20.45 | 2.4   | 2.64 | 10.7  | 0.14   |
+| m4.1  | 936.2 | 20.30 | 5.4   | 2.28 | 11.8  | 0.03   |
+
+In comparison with a simpler model that doesn't include seasonal effects, none of the seasonal models performed as well as I'd hoped. A comparison between the prior and posterior shows not much has been learned from the data about seasonal effects. Based on posterior summaries, it seems seasonal effects are partially confounded by type of hike, and including seasonal effects increases the uncertainty in the effect of hike type. I checked the serial autocorrelation plot between successive hikes in the data ordered by date, and it seems this correlation declines quite rapidly over 1 or 2 successive hikes.   
