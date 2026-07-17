@@ -48,4 +48,17 @@ There are many reasons to expect a seasonal effect. Exams, start or end of contr
 | m4.2  | 933.2 | 20.45 | 2.4   | 2.64 | 10.7  | 0.14   |
 | m4.1  | 936.2 | 20.30 | 5.4   | 2.28 | 11.8  | 0.03   |
 
-In comparison with a simpler model that doesn't include seasonal effects, none of the seasonal models performed as well as I'd hoped. A comparison between the prior and posterior shows not much has been learned from the data about seasonal effects. Based on posterior summaries, it seems seasonal effects are partially confounded by type of hike, and including seasonal effects increases the uncertainty in the effect of hike type. I checked the serial autocorrelation plot between successive hikes in the data ordered by date, and it seems this correlation declines quite rapidly over 1 or 2 successive hikes.   
+In comparison with a simpler model that doesn't include seasonal effects, none of the seasonal models performed as well as I'd hoped. A comparison between the prior and posterior shows not much has been learned from the data about seasonal effects. Based on posterior summaries, it seems seasonal effects are partially confounded by type of hike, and including seasonal effects increases the uncertainty in the effect of hike type. I checked the serial autocorrelation plot between successive hikes in the data ordered by date, and it seems this correlation declines quite rapidly over 1 or 2 successive hikes.
+
+# The Gap of Time Between Hikes and the Sunday Effect
+
+Grouping hikes by the day of the week on which they happen and plotting a boxplot of signups suggests that hikes on a Sunday are more popular than hikes on a Saturday or any other day of the week. There are 17 hikes on weekdays but signups vary quite a lot. Some of these might be on public holidays, they might be evening hikes or they fall during the summer when people are generally off work. I used a binary indicator variable to estimate the 'Sunday effect'
+
+I also wanted to estimate the effect of a long gap between a hike and the previous one. On the one hand people might be more excited about a hike if there's been a long time since the last one. On the other hand, there might be a momentum effect that's lost when too much time has passed between hikes. I used weeks since last hike centred on 0 as a continuous predictor, where 1 week since the last hike = 0. -1 is then equivalent to a hike on the same day as another hike and 1 is equivalent to a hike two weeks since the last one. 
+
+| model | WAIC  | SE    | dWAIC | dSE  | pWAIC | weight |
+|-------|-------|-------|-------|------|-------|--------|
+| m6    | 929.3 | 19.92 | 0     | NA   | 10.4  | 0.68   |
+| m3.1  | 930.8 | 20.39 | 1.5   | 4.18 | 8.6   | 0.32   |
+
+The predictors improve model fit and comparing prior and posterior suggests the data do support the Sunday effect and a positive effect of a longer gap between hikes, though the posterior is still consistent with very minor or zero effect sizes as well as larger effect sizes.
