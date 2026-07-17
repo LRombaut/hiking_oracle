@@ -86,8 +86,8 @@ m3.1 <- ulam(
     signups ~ dgampois(lambda, phi),
     log(lambda) <- a[typeid] + r*rain,
     a[typeid] ~ dnorm(a_bar, sigma),
-    a_bar ~ dnorm(3, 0.5),
-    sigma ~ dexp(2),
+    a_bar ~ dnorm(3, 0.25),
+    sigma ~ half_normal(0, 0.5),
     r ~ dnorm(0, 0.3), #turnout with rain could be anywhere between 55% to 180% of turnout with no rain
     phi ~ dexp(0.5)
   ), 
@@ -142,8 +142,8 @@ m3.2 <- ulam(
     signups ~ dgampois(lambda, phi),
     log(lambda) <- a[typeid] + lr*lrain + hr*hrain,
     a[typeid] ~ dnorm(a_bar, sigma),
-    a_bar ~ dnorm(3, 0.5),
-    sigma ~ dexp(2),
+    a_bar ~ dnorm(3, 0.25),
+    sigma ~ half_normal(0, 0.5),
     c(lr, hr) ~ dnorm(0, 0.3), #turnout with rain could be anywhere between 55% to 180% of turnout with no rain
     phi ~ dexp(0.5)
   ), 
@@ -172,8 +172,8 @@ m3.3 <- ulam(
     signups ~ dgampois(lambda, phi),
     log(lambda) <- a[typeid] + r*rain,
     a[typeid] ~ dnorm(a_bar, sigma),
-    a_bar ~ dnorm(3, 0.5),
-    sigma ~ dexp(2),
+    a_bar ~ dnorm(3, 0.25),
+    sigma ~ half_normal(0, 0.5),
     r ~ dnorm(0, 0.3), #turnout with 1mm rain could be anywhere between 55% to 180% of turnout with no rain
     phi ~ dexp(0.5)
   ), 
@@ -192,4 +192,11 @@ compare(m3.1, m3.2, m3.3)
 stancode(m3.1)
 stancode(m3.2)
 stancode(m3.3)
+
+
+
+
+
+
+
 
