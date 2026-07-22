@@ -36,7 +36,7 @@ I tried three different ways of modeling the effect of rain. Model 1 (m3.1) uses
 
 The simplest model is the most strongly supported by the WAIC measure, and has the advantage of being the easiest to interpret. I therefore decided to use a binary indicator variable for rain in subsequent models. 
 
-# 'Tis the Season...Year and Season Effects
+# 'Tis the Season...Year, Season and Sunday Effects
 
 The hiking group has existed for 5 years. In that time the number of people who are in the group has grown, so has the number of people available to sign up for hikes. To capture this effect I tested three different models. The first model (m4.0) considers the first year (2022) to be different from all subsequent years because the group was just starting up. The second model (m4.1) assumes a linear trend from the year the group was started up to the present. Model 3 (m4.2) gives each year its own individual year effect.
 
@@ -57,6 +57,13 @@ There are many reasons to expect a seasonal effect. Exams, start or end of contr
 | m4.0.1 | 922.5 | 20.97 | 2.7   | 2.82 | 11.8  | 0.12   |
 
 There's a slight difference in WAIC score between models m4.0.2 and m4.0.3, but it's small relative to the error (dSE). In the posterior of model m4.0.1 only the winter effect is reliably negative relative to summer, autumn, and spring effects. I therefore selected model m4.0.2 as the basis for further modeling. 
+
+Grouping hikes by the day of the week on which they happen and plotting a boxplot of signups suggests that hikes on a Sunday are more popular than hikes on a Saturday or any other day of the week. There are 17 hikes on weekdays but signups vary quite a lot. Some of these might be on public holidays, they might be evening hikes or they fall during the summer when people are generally off work. I used a binary indicator variable to estimate the 'Sunday effect' in model m4.0.2.s.
+
+| model    | WAIC  | SE    | dWAIC | dSE  | pWAIC | weight |
+|----------|-------|-------|-------|------|-------|--------|
+| m4.0.2.s | 917.1 | 20.19 | 0     | NA   | 10.8  | 0.86   |
+| m4.0.2   | 920.6 | 20.60 | 3.6   | 3.86 | 10.2  | 0.14   |
 
 # The Gap of Time Between Hikes and the Sunday Effect
 
