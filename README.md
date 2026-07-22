@@ -36,19 +36,27 @@ I tried three different ways of modeling the effect of rain. Model 1 (m3.1) uses
 
 The simplest model is the most strongly supported by the WAIC measure, and has the advantage of being the easiest to interpret. I therefore decided to use a binary indicator variable for rain in subsequent models. 
 
-# 'Tis the Season, Or Not...
+# 'Tis the Season...Year and Season Effects
 
-There are many reasons to expect a seasonal effect. Exams, start or end of contracts, people going on holiday- these factors (potentially) change the pool of people who are able or willing to join hikes. I tried to fit some simple models lumping different months of the year together to explore this possibility. Model 1 (m4.1) uses 6 pairs of 2 consecutive months starting from january, m4.2 4 seasons of 3 months each starting from december, m4.3 3 seasons of 4 months each starting from november, and m4.4 2 seasons of 6 months each starting from october. 
+The hiking group has existed for 5 years. In that time the number of people who are in the group has grown, so has the number of people available to sign up for hikes. To capture this effect I tested three different models. The first model (m4.0) considers the first year (2022) to be different from all subsequent years because the group was just starting up. The second model (m4.1) assumes a linear trend from the year the group was started up to the present. Model 3 (m4.2) gives each year its own individual year effect.
 
 | model | WAIC  | SE    | dWAIC | dSE  | pWAIC | weight |
 |-------|-------|-------|-------|------|-------|--------|
-| m3.1  | 930.8 | 20.58 | 0     | NA   | 8.6   | 0.48   |
-| m4.4  | 932.7 | 20.41 | 1.9   | 1.02 | 9.5   | 0.18   |
-| m4.3  | 933.0 | 20.02 | 2.2   | 2.44 | 10.3  | 0.16   |
-| m4.2  | 933.2 | 20.45 | 2.4   | 2.64 | 10.7  | 0.14   |
-| m4.1  | 936.2 | 20.30 | 5.4   | 2.28 | 11.8  | 0.03   |
+| m4.0  | 922.2 | 20.82 | 0     | NA   | 9.6   | 0.89   |
+| m4.2  | 930.8 | 20.88 | 4.6   | 1.27 | 11.3  | 0.09   |
+| m4.1  | 929.8 | 21.42 | 7.6   | 3.89 | 9.7   | 0.02   |
 
-In comparison with a simpler model that doesn't include seasonal effects, none of the seasonal models performed as well as I'd hoped. A comparison between the prior and posterior shows not much has been learned from the data about seasonal effects. Based on posterior summaries, it seems seasonal effects are partially confounded by type of hike, and including seasonal effects increases the uncertainty in the effect of hike type. I checked the serial autocorrelation plot between successive hikes in the data ordered by date, and it seems this correlation declines quite rapidly over 1 or 2 successive hikes.
+The simplest model (m4.0) is strongly preferred, implying that the pool of people who sign up to hikes regularly has remained in equilibrium in the years after the group was started. Examining the posterior for m4.2 shows that the individual year effects are uncertain but all centred around 0 except for the year 2022.
+
+There are many reasons to expect a seasonal effect. Exams, start or end of contracts, people going on holiday- these factors (potentially) change the pool of people who are able or willing to join hikes. I tried to fit some simple models lumping different months of the year together to explore this possibility. Model 1 (m4.0.1) splits the months of the year into four seasons of three months each, m4.0.2 assumes that during the cold winter months people will be less likely to come on hikes compared to the rest of the year, and m4.0.3 assumes that both in the winter months of december, january and february as well as in the summer months of june, july and august people will be less likely to join. 
+
+| model  | WAIC  | SE    | dWAIC | dSE  | pWAIC | weight |
+|--------|-------|-------|-------|------|-------|--------|
+| m4.0.2 | 919.8 | 20.47 | 0     | NA   | 9.8   | 0.46   |
+| m4.0.3 | 920.0 | 21.25 | 0.2   | 4.17 | 10.0  | 0.41   |
+| m4.0.1 | 922.5 | 20.97 | 2.7   | 2.82 | 11.8  | 0.12   |
+
+There's a slight difference in WAIC score between models m4.0.2 and m4.0.3, but it's small relative to the error (dSE). In the posterior of model m4.0.1 only the winter effect is reliably negative relative to summer, autumn, and spring effects. I therefore selected model m4.0.2 as the basis for further modeling. 
 
 # The Gap of Time Between Hikes and the Sunday Effect
 
