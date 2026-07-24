@@ -6,7 +6,7 @@ I used a Bayesian modeling approach implemented in the stan programming language
 
 # Insights
 
-<img width="631" height="813" alt="observed_predicted" src="https://github.com/user-attachments/assets/6d203f26-4a9c-4f75-9cfa-63df8f2ed2fd" />
+<img width="315" height="406" alt="observed_predicted" src="https://github.com/user-attachments/assets/6d203f26-4a9c-4f75-9cfa-63df8f2ed2fd" />
 
 # Data Pre-processing
 
