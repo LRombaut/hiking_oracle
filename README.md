@@ -1,7 +1,12 @@
-# Hiking Data Project
-This is a set of Stan model specifications for Bayesian models of signup numbers to hikes in my local hiking group as a function of various predictors (weather, distance, season, type of hike etc). R scripts are for data pre-processing steps and analysing the MCMC output. The source data is not part of this repository for privacy reasons.
+# Hiking Oracle Data Project
 
-I compiled the STAN models using the CmdStanR package interface.
+My local hiking group has existed for 5 years and has done more than 150 hikes. It has grown from a handful of members to a thriving community. Members of the group sign up to hikes via the Whatsapp chat and remove themselves from the signup list if they are no longer coming. Some hikes get more than 50 signups, while other hikes have a much cozier dozen people or so. Since there is a lot of information about each hike recorded in the chat history, I wanted to explore what predicts signup numbers with the goal of gaining insight as well as making predictions about turnout to future hikes. 
+
+I used a Bayesian modeling approach implemented in the stan programming language to generate posterior distributions of parameter estimates feeding into a predictive model for the distribution of signups. The full model specification and further technical details of my modeling workflow can be found in the sections below. I have decided to call this predictive model the 'hiking oracle'.
+
+# Insights
+
+<img width="631" height="813" alt="observed_predicted" src="https://github.com/user-attachments/assets/6d203f26-4a9c-4f75-9cfa-63df8f2ed2fd" />
 
 # Data Pre-processing
 
@@ -82,10 +87,3 @@ I sequentially added these predictors to see if their inclusion in the model is 
 | m5    | 918.9 | 20.35 | 2.9   | 4.05 | 11.7  | 0.12   |
 
 While including weeks since the last hike does incur a slight penalty, the posterior shows that this effect may well be positive and with more data might be better resolved, so I decided to keep it in the model. There seems to be a reliably negative effect of an early start time. Hike distance for regular hikes does not significantly improve prediction, plus there is already an indicator for 'heavy hikes' in the model so it seems redundant to estimate this effect.    
-
-
-
-
-
-
-The predictors improve model fit and comparing prior and posterior suggests the data do support the Sunday effect and a positive effect of a longer gap between hikes, though the posterior is still consistent with very minor or zero effect sizes as well as larger effect sizes.
