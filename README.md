@@ -65,15 +65,27 @@ Grouping hikes by the day of the week on which they happen and plotting a boxplo
 | m4.0.2.s | 917.1 | 20.19 | 0     | NA   | 10.8  | 0.86   |
 | m4.0.2   | 920.6 | 20.60 | 3.6   | 3.86 | 10.2  | 0.14   |
 
-# The Gap of Time Between Hikes and the Sunday Effect
+# The Gap of Time Between Hikes, Hike Start Time & Distance
 
-Grouping hikes by the day of the week on which they happen and plotting a boxplot of signups suggests that hikes on a Sunday are more popular than hikes on a Saturday or any other day of the week. There are 17 hikes on weekdays but signups vary quite a lot. Some of these might be on public holidays, they might be evening hikes or they fall during the summer when people are generally off work. I used a binary indicator variable to estimate the 'Sunday effect'
+The amount of time that has passed since the previous hike in the group seemed to me a reasonable predictor to include in the model (m5). If a hike happens on the same weekend as another hike they might compete for signups, and if a long time has passed without a hike people might be more enthusiastic about joining the next one. 
 
-I also wanted to estimate the effect of a long gap between a hike and the previous one. On the one hand people might be more excited about a hike if there's been a long time since the last one. On the other hand, there might be a momentum effect that's lost when too much time has passed between hikes. I used weeks since last hike centred on 0 as a continuous predictor, where 1 week since the last hike = 0. -1 is then equivalent to a hike on the same day as another hike and 1 is equivalent to a hike two weeks since the last one. 
+The hike start time when people are expected to meet up could also be important (m6). People might be reluctant to wake up early to go hiking on a weekend. 
+
+Lastly, the planned hike distance could play a role (m7). To prevent this effect being confounded by the type of hike (some hikes are classed as 'heavy hikes'), I used an indicator variable to make sure that the effect only applies to hikes classed as 'regular' hikes. 
+
+I sequentially added these predictors to see if their inclusion in the model is justified. 
 
 | model | WAIC  | SE    | dWAIC | dSE  | pWAIC | weight |
 |-------|-------|-------|-------|------|-------|--------|
-| m6    | 929.3 | 19.92 | 0     | NA   | 10.4  | 0.68   |
-| m3.1  | 930.8 | 20.39 | 1.5   | 4.18 | 8.6   | 0.32   |
+| m6    | 916.0 | 20.01 | 0     | NA   | 12.8  | 0.52   |
+| m7    | 916.7 | 19.65 | 0.7   | 0.68 | 12.8  | 0.36   |
+| m5    | 918.9 | 20.35 | 2.9   | 4.05 | 11.7  | 0.12   |
+
+While including weeks since the last hike does incur a slight penalty, the posterior shows that this effect may well be positive and with more data might be better resolved, so I decided to keep it in the model. There seems to be a reliably negative effect of an early start time. Hike distance for regular hikes does not significantly improve prediction, plus there is already an indicator for 'heavy hikes' in the model so it seems redundant to estimate this effect.    
+
+
+
+
+
 
 The predictors improve model fit and comparing prior and posterior suggests the data do support the Sunday effect and a positive effect of a longer gap between hikes, though the posterior is still consistent with very minor or zero effect sizes as well as larger effect sizes.
