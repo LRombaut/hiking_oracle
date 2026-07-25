@@ -1,4 +1,3 @@
-<img width="1466" height="948" alt="observed_predicted" src="https://github.com/user-attachments/assets/140d6408-caf1-4af1-9600-a69ad88e0c9a" />
 # Hiking Oracle Data Project
 
 My local hiking group has existed for 5 years and has done more than 150 hikes. It has grown from a handful of members to a thriving community. Members of the group sign up to hikes via the Whatsapp chat and remove themselves from the signup list if they are no longer coming. Some hikes get more than 50 signups, while other hikes have a much cozier dozen people or so. Since there is a lot of information about each hike recorded in the chat history, I wanted to explore what predicts signup numbers with the goal of gaining insight as well as making predictions about turnout to future hikes. 
@@ -8,7 +7,7 @@ I used a Bayesian modeling approach implemented in the stan programming language
 # Insights
 
 <img width="282" height="372" alt="observed_predicted" src="https://github.com/user-attachments/assets/ca941d6b-a22d-4c05-9523-c259f0442182" />
-
+<img width="350" height="470" alt="observed_predicted" src="https://github.com/user-attachments/assets/140d6408-caf1-4af1-9600-a69ad88e0c9a" />
 
 # Data Pre-processing
 
