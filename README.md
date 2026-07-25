@@ -7,7 +7,8 @@ I used a Bayesian modeling approach implemented in the stan programming language
 # Insights
 
 <img width="282" height="372" alt="observed_predicted" src="https://github.com/user-attachments/assets/ca941d6b-a22d-4c05-9523-c259f0442182" />
-<img width="282" height="372" alt="observed_predicted" src="https://github.com/user-attachments/assets/140d6408-caf1-4af1-9600-a69ad88e0c9a" />
+<img width="250" height="372" alt="observed_predicted" src="https://github.com/user-attachments/assets/bd8c7a34-1ee3-49d4-b9a0-6c9446072960" />
+
 
 # Data Pre-processing
 
