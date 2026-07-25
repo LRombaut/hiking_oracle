@@ -2,13 +2,16 @@
 
 My local hiking group has existed for 5 years and has done more than 150 hikes. It has grown from a handful of members to a thriving community. Members of the group sign up to hikes via the Whatsapp chat and remove themselves from the signup list if they are no longer coming. Some hikes get more than 50 signups, while other hikes have a much cozier dozen people or so. Since there is a lot of information about each hike recorded in the chat history, I wanted to explore what predicts signup numbers with the goal of gaining insight as well as making predictions about turnout to future hikes. 
 
-I used a Bayesian modeling approach implemented in the stan programming language to generate posterior distributions of parameter estimates feeding into a predictive model for the distribution of signups. The full model specification and further technical details of my modeling workflow can be found in the sections below. I have decided to call this predictive model the 'hiking oracle'.
+I fit a generalised linear model to predict signup counts assuming a Gamma-Poisson mixture process with a negative binomial error distribution and a log link function. I used a Bayesian modeling approach implemented in the stan programming language to generate posterior distributions of parameter estimates feeding into a predictive model for the distribution of signups. The full model specification and further technical details of my modeling workflow can be found in the sections further down below. I have decided to call this predictive model the 'hiking oracle'.
 
 # Insights
+
+The hiking oracle makes predictions that are typically within ~40% of the observed turnout (weighted average percentage error or WAPE of 39.4%) and the predictive distribution does a good job of capturing the error distribution of the data around the mean prediction. A significant portion of the difference between what is observed and what is expected here is simply due to the irreducible error of the data generating process, limiting the predictive power of any model that could be fit to the data in principle. In the plot on the right below, the red dashed lines indicate the upper and lower 95% bounds on the posterior of the predicted means (marginalised over the data). The shaded regions are the 68% and 95% prediction intervals for observed turnout.  
 
 <img width="282" height="372" alt="observed_predicted" src="https://github.com/user-attachments/assets/ca941d6b-a22d-4c05-9523-c259f0442182" />
 <img width="250" height="372" alt="observed_predicted" src="https://github.com/user-attachments/assets/bd8c7a34-1ee3-49d4-b9a0-6c9446072960" />
 
+While the hiking oracle may have limited utility as a tool for predicting turnout to any individual hike, in aggregate the model does offer insight into the factors that motivate people's decisions to sign up or not.   
 
 # Data Pre-processing
 
