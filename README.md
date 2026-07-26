@@ -25,6 +25,9 @@ An early start time also influences people's decisions whether or not to sign up
 
 <img width="668" height="764" alt="starting_time" src="https://github.com/user-attachments/assets/439546c2-4879-42c9-843d-521583737ddb" />
 
+# Full Model & Priors Specification
+
+$$ 3 + 5 = 8 $$
 
 # Data Pre-processing
 
