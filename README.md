@@ -27,7 +27,7 @@ An early start time also influences people's decisions whether or not to sign up
 
 # Full Model & Priors Specification
 
-$$ 3 + 5 = 8 $$
+$$ Signups ~ Negative-Binomial(\lambda, \phi) $$
 
 # Data Pre-processing
 
