@@ -21,7 +21,7 @@ On top of the effect of each specific type of hike there were also other effects
 
 <img width="1022" height="948" alt="posteriors" src="https://github.com/user-attachments/assets/7f9e61df-ce5a-4911-9a1b-f84aded08d4b" />
 
-An early start time also influences people's decisions whether or not to sign up. Few people are motivated enough to get up at 6am to go on a hike on their days off! All else being equal, the model believes that a hike which starts at 12:30 pm would have ~50% more signups on average than if it had been scheduled to start at 8:30 am. The predicted effect of varying start time while keeping all other things equal is plotted against the raw data below for 'regular' hikes.    
+An early start time also influences people's decisions whether or not to sign up. Few people are motivated enough to get up at 6am to go on a hike on their days off! All else being equal, the model believes that a hike which starts at 12:30 pm would have ~45% more signups on average than if it had been scheduled to start at 8:30 am. The predicted effect of varying start time while keeping all other things equal is plotted against the raw data below for 'regular' hikes.    
 
 <img width="668" height="764" alt="starting_time" src="https://github.com/user-attachments/assets/439546c2-4879-42c9-843d-521583737ddb" />
 
