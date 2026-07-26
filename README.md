@@ -11,7 +11,10 @@ The hiking oracle makes predictions that are typically within ~40% of the observ
 <img width="282" height="372" alt="observed_predicted" src="https://github.com/user-attachments/assets/ca941d6b-a22d-4c05-9523-c259f0442182" />
 <img width="250" height="372" alt="observed_predicted" src="https://github.com/user-attachments/assets/bd8c7a34-1ee3-49d4-b9a0-6c9446072960" />
 
-While the hiking oracle may have limited utility as a tool for predicting turnout to any individual hike, in aggregate the model does offer insight into the factors that motivate people's decisions to sign up or not.   
+While the hiking oracle may have limited utility as a tool for predicting turnout to any individual hike, in aggregate the model does offer insight into the factors that motivate people's decisions to sign up or not.
+
+<img width="1826" height="780" alt="hike_type" src="https://github.com/user-attachments/assets/514cdba7-e2f5-4cf8-a614-ba9955953ec1" />
+
 
 # Data Pre-processing
 
