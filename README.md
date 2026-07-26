@@ -65,7 +65,7 @@ The hiking group has existed for 5 years. In that time the number of people who 
 | m4.2  | 930.8 | 20.88 | 4.6   | 1.27 | 11.3  | 0.09   |
 | m4.1  | 929.8 | 21.42 | 7.6   | 3.89 | 9.7   | 0.02   |
 
-The simplest model (m4.0) is strongly preferred, implying that the pool of people who sign up to hikes regularly has remained in equilibrium in the years after the group was started. Examining the posterior for m4.2 shows that the individual year effects are uncertain but all centred around 0 except for the year 2022.
+The simplest model (m4.0) is strongly preferred, implying that the pool of people who sign up to hikes regularly has remained in equilibrium in the years after the group was started. Examining the posterior for m4.2 shows that the individual year effects are uncertain but all centred around 0 except for the year 2022. The plot below uses a loess smoothing to show the trend in the timeseries.
 
 <img width="1268" height="572" alt="timeseries" src="https://github.com/user-attachments/assets/6772f82d-fe5b-4502-80a6-6c9140ff79f8" />
 
