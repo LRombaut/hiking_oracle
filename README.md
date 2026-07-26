@@ -27,7 +27,7 @@ An early start time also influences people's decisions whether or not to sign up
 
 # Full Model & Priors Specification
 
-$$ Signups \sim NegativeBinomial(\lambda, \phi) $$ 
+$$ Signups \sim NegativeBinomial(\lambda, \phi) \quad \textbf{(Likelihood)}$$ 
 $$ log(\lambda) = \alpha_i + r \cdot isRain + y \cdot is2022 + w \cdot isWinter + s \cdot isMorning \cdot StartTime + d \cdot isSunday + wlh \cdot WeeksSinceLastHike $$
 $$ \alpha_i \sim Normal( \tilde \alpha , \sigma ) \quad \textbf{(prior on intercepts for different hike types)} $$ 
 $$ \tilde \alpha \sim Normal( 3, 0.5 ) \quad \textbf{(hyperprior on mean intercept)} $$
