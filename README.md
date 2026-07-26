@@ -28,7 +28,7 @@ An early start time also influences people's decisions whether or not to sign up
 # Full Model & Priors Specification
 
 $$ Signups \sim NegativeBinomial(\lambda, \phi) $$ 
-$$ log(\lambda) = \alpha_i + r*Is_raining $$
+$$ log(\lambda) = \alpha_i + r*is_rain + y*is_2022 + w*is_winter + es*is_morning_start*start_time $$
 
 # Data Pre-processing
 
