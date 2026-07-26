@@ -19,7 +19,7 @@ While the hiking oracle may have limited utility as a tool for predicting turnou
 
 On top of the effect of each specific type of hike there were also other effects influencing hike signups. In the figure below I have plotted the posterior distributions of effect sizes for various predictors included in the model. The effect sizes are the implied percentage changes to the expected number of signups, assuming the effect of all other predictors remains fixed at a certain baseline. For example, the 'Sunday Effect' is whether a hike was organised on a Sunday rather than a Saturday (or any other day of the week). Hikes on a Sunday are expected to have +20% more signups on average. The effect comes with uncertainty however, reflected in the posterior distribution. To capture 89% of the posterior distribution you would have to allow for a Sunday effect between +3% and +35%, though effect sizes closer to +20% are more likely. If there is any rain forecasted at all the number of signups drops by -15% on average. During the winter months the number of signups drops by -18% on average. An early start time also influences people's decisions whether or not to sign up. Few people are motivated enough to get up at 6am to go on a hike on their days off! After everything else is accounted for, the model implies that
 
-<img width="896" height="948" alt="posterior" src="https://github.com/user-attachments/assets/a82950d7-4b1b-44e9-95a2-8c6df9718990" />
+<img width="1022" height="948" alt="posteriors" src="https://github.com/user-attachments/assets/7f9e61df-ce5a-4911-9a1b-f84aded08d4b" />
 
 
 # Data Pre-processing
