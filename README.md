@@ -29,7 +29,7 @@ An early start time also influences people's decisions whether or not to sign up
 
 $$ Signups \sim NegativeBinomial(\lambda, \phi) $$ 
 $$ log(\lambda) = \alpha_i + r \cdot isRain + y \cdot is2022 + w \cdot isWinter + es \cdot isMorning \cdot StartTime + d \cdot isSunday + wlh \cdot WeeksSinceLastHike $$
-$$ \alpha_i \sim Normal( \tilde \alpha , \sigma ) $$ 
+$$ \alpha_i \sim Normal( \tilde \alpha , \sigma ) $$ #intercepts for different hike types
 
 # Data Pre-processing
 
