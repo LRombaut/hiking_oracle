@@ -130,4 +130,18 @@ I sequentially added these predictors to see if their inclusion in the model is 
 | m7    | 916.7 | 19.65 | 0.7   | 0.68 | 12.8  | 0.36   |
 | m5    | 918.9 | 20.35 | 2.9   | 4.05 | 11.7  | 0.12   |
 
-While including weeks since the last hike does incur a slight penalty, the posterior shows that this effect may well be positive and with more data might be better resolved, so I decided to keep it in the model. There seems to be a reliably negative effect of an early start time. Hike distance for regular hikes does not significantly improve prediction, plus there is already an indicator for 'heavy hikes' in the model so it seems redundant to estimate this effect.    
+While including weeks since the last hike does incur a slight penalty, the posterior shows that this effect may well be positive and with more data might be better resolved, so I decided to keep it in the model. There seems to be a reliably negative effect of an early start time. Hike distance for regular hikes does not significantly improve prediction, plus there is already an indicator for 'heavy hikes' in the model so it seems redundant to estimate this effect. 
+
+# Reflections
+
+- randomforest regression as an alternative- easier to implement
+- fundamental limit on prediction is the irreducible error- tricky for this type of generative process because it involves multiplicative errors and overdispersion: distinction between goals of prediction and insight into driving forces
+- Gaussian process model to squeeze out more information from points close in time
+- Implementing an R shiny app to generate the predictive distribution for the next hike
+- More data will allow the posterior to be updated again- narrowing the effect size estimates
+- Rethinking package makes it easy to write, execute and analyse output
+- how to model the bandwagon effect and the reverse bandwagon effect- given that a hike already has a certain number of signups what is the number of signups in the end going to be?
+- clustering of signups- people who know each other will sign up together.  
+  
+
+
