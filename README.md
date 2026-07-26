@@ -67,6 +67,8 @@ The hiking group has existed for 5 years. In that time the number of people who 
 
 The simplest model (m4.0) is strongly preferred, implying that the pool of people who sign up to hikes regularly has remained in equilibrium in the years after the group was started. Examining the posterior for m4.2 shows that the individual year effects are uncertain but all centred around 0 except for the year 2022.
 
+<img width="1268" height="572" alt="timeseries" src="https://github.com/user-attachments/assets/6772f82d-fe5b-4502-80a6-6c9140ff79f8" />
+
 There are many reasons to expect a seasonal effect. Exams, start or end of contracts, people going on holiday- these factors (potentially) change the pool of people who are able or willing to join hikes. I tried to fit some simple models lumping different months of the year together to explore this possibility. Model 1 (m4.0.1) splits the months of the year into four seasons of three months each, m4.0.2 assumes that during the cold winter months people will be less likely to come on hikes compared to the rest of the year, and m4.0.3 assumes that both in the winter months of december, january and february as well as in the summer months of june, july and august people will be less likely to join. 
 
 | model  | WAIC  | SE    | dWAIC | dSE  | pWAIC | weight |
