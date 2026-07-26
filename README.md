@@ -29,7 +29,16 @@ An early start time also influences people's decisions whether or not to sign up
 
 $$ Signups \sim NegativeBinomial(\lambda, \phi) $$ 
 $$ log(\lambda) = \alpha_i + r \cdot isRain + y \cdot is2022 + w \cdot isWinter + es \cdot isMorning \cdot StartTime + d \cdot isSunday + wlh \cdot WeeksSinceLastHike $$
-$$ \alpha_i \sim Normal( \tilde \alpha , \sigma ) \quad \mathit{intercepts for different hike types} $$ 
+$$ \alpha_i \sim Normal( \tilde \alpha , \sigma ) \quad \textbf{(prior on intercepts for different hike types)} $$ 
+$$ \tilde \alpha \sim Normal( 3, 0.5 ) \quad \textbf{(hyperprior on mean intercept)} $$
+$$ \sigma \sim HalfNormal(0,1) \quad \textbf{(hyperprior on standard deviation of intercepts)} $$
+$$ \phi \sim Exponential(0.3) \quad \textbf{(prior scale parameter of negative binomial)}$$
+$$ r \sim Normal(0,0.3) \quad \textbf{(prior on rain effect)}$$
+$$ y \sim Normal(0,0.5) \quad \textbf{(prior on year effect)}$$
+$$ w \sim Normal(0,0.3) \quad \textbf{(prior on winter effect)}$$
+$$ es \sim Normal(0,0.3) \quad \textbf{(prior on slope of start time effect)}$$
+$$ d \sim Normal(0,0.3) \quad \textbf{(prior on sunday effect)}$$
+$$ wlh \sim Normal(0,0.3) \quad \textbf{(prior on slope of weeks since last hike effect)} $$
 
 # Data Pre-processing
 
