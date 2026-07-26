@@ -4,7 +4,7 @@ My local hiking group has existed for 5 years and has done more than 150 hikes. 
 
 I fit a generalised linear model to predict signup counts assuming a Gamma-Poisson mixture process with a negative binomial error distribution and a log link function to the linear predictors. I used a Bayesian modeling approach implemented in the stan programming language to generate posterior distributions of parameter estimates feeding into a predictive model for the distribution of signups. The full model specification and further technical details of my modeling workflow can be found in the sections further down below. 
 
-My reflections on this modeling exercise are in a section all the way down. I have decided to call this predictive model the 'hiking oracle'. Like an oracle, the predictions are vague and the outcomes almost never exactly as expected, but the predictions can nonetheless offer some insights into the forces that shape the outcome.
+My reflections on this modeling exercise are in a section all the way down. I have decided to call this predictive model the 'hiking oracle'. Like an oracle, the predictions are vague and the outcomes almost never exactly as expected, but the exercise of making predictions can nonetheless offer some insights into the forces that shape the outcome.
 
 # Insights
 
