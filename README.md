@@ -2,7 +2,7 @@
 
 My local hiking group has existed for 5 years and has done more than 150 hikes. It has grown from a handful of members to a thriving community. Members of the group sign up to hikes via the Whatsapp chat and remove themselves from the signup list if they are no longer coming. Some hikes get more than 50 signups, while other hikes have a much cozier dozen people or so. Since there is a lot of information about each hike recorded in the chat history, I wanted to explore what predicts signup numbers with the goal of gaining insight as well as making predictions about turnout to future hikes. 
 
-I fit a generalised linear model to predict signup counts assuming a Gamma-Poisson mixture process with a negative binomial error distribution and a log link function to the linear predictors. I used a Bayesian modeling approach implemented in the Stan programming language to generate posterior distributions of parameter estimates feeding into a predictive model for the distribution of signups. The full model specification and further technical details of my modeling workflow can be found in the sections further down below. 
+I fit a generalised linear model to predict signup counts assuming a Gamma-Poisson mixture process with a negative binomial error distribution and a log link function to the linear predictors. I used a Bayesian modeling approach implemented in the Stan programming language (1) to generate posterior distributions of parameter estimates feeding into a predictive model for the distribution of signups. The full model specification and further technical details of my modeling workflow can be found in the sections further down below. 
 
 My reflections on this modeling exercise are in a section all the way down. I have decided to call this predictive model the 'hiking oracle'. Like an oracle, the predictions are vague and the outcomes almost never exactly as expected, but the exercise of making predictions can nonetheless offer some insights into the forces that shape the outcome.
 
@@ -42,7 +42,7 @@ $$ wlh \sim Normal(0,0.3) \quad \textbf{(prior on slope of weeks since last hike
 
 # Data Pre-processing
 
-I gathered all the data myself from the signup list and event descriptions in my hiking group's WhatsApp chat. There are 155 hikes in the data between March 2022 and June 2026. I assigned each hike to a category based on the event description. I sourced historical weather data from MeteoStat.
+I gathered all the data myself from the signup list and event descriptions in my hiking group's WhatsApp chat. There are 155 hikes in the data between March 2022 and June 2026. I assigned each hike to a category based on the event description. For privacy reasons the data are not provided in this repository. I sourced historical weather data from MeteoStat (2).
 
 I did some basic data quality control (data_preparation.R), and converted date and starting time of each hike from character strings to POSIXct format using the lubridate package. From the vector of datetimes I extracted year, month, day of the week and the number of weeks since the last hike. I recoded some predictors as binary indicator variables. Weeks since last hike and starting time remained as continuous predictors, both of which I centred and rescaled so that 1 unit is equivalent to 1 standard deviation. I removed hikes which had a signup number cap, leaving 124 hikes. I exported the resulting dataframe as an RDS file for easy access in all my subsequent analyses.
 
@@ -50,9 +50,9 @@ I did some basic data quality control (data_preparation.R), and converted date a
 
 I performed prior predictive simulation to assess the suitability of priors, aiming for weakly informative priors that capture the relative magnitude of plausible intercepts and effect sizes, with priors for effect sizes centred on 0.   
 
-I sampled from the posterior distribution of model parameters using the Hamiltonian Monte Carlo method implemented by Stan. I used the rethinking package in R as an interface to write, execute, and analyse the output of Stan model code. To check for convergence and to diagnose any issues I ran 4 parallel chains and inspected their trace and rank plots, as well as the R hat and effective sample sizes for all model parameters. 
+I sampled from the posterior distribution of model parameters using the Hamiltonian Monte Carlo method implemented by Stan (1). I used the rethinking package in R (3) as an interface to write, execute, and analyse the output of Stan model code. To check for convergence and to diagnose any issues I ran 4 parallel chains and inspected their trace and rank plots, as well as the R hat and effective sample sizes for all model parameters. 
 
-To identify potential model misspecification I computed pointwise PSIS scores and examined data points with Pareto k values >0.5. For model selection and complexity control I used the 'widely applicable information criterion' or WAIC.  
+To identify potential model misspecification I computed pointwise PSIS scores and examined data points with Pareto k values >0.5. For model selection and complexity control I used the 'widely applicable information criterion' or WAIC (4).  
 
 I visually inspected posterior distributions for all parameters and made comparisons to their priors. I also performed posterior predictive simulation in comparison with the observed data as a final model check.  
 
@@ -65,7 +65,7 @@ The first model comparison I did was to gauge whether a Poisson count model (m1.
 | m2    | 932.5 | 20.77  | 0     | NA  | 7.8   | 1      |
 | m1    | 1415.1 | 122.10 | 482.6   | 104.38 | 51.6  | 0      |
 
-Calculating PSIS scores for model 1 showed that 9 data points had Pareto k values greater than 0.5. There was one such outlier for model 2. 
+Calculating PSIS scores (5) for model 1 showed that 9 data points had Pareto k values greater than 0.5. There was one such outlier for model 2. 
 
 I used a Gamma-Poisson count model as the basis for all subsequent analyses.
 
@@ -134,14 +134,32 @@ While including weeks since the last hike does incur a slight penalty, the poste
 
 # Reflections
 
-- randomforest regression as an alternative- easier to implement
-- fundamental limit on prediction is the irreducible error- tricky for this type of generative process because it involves multiplicative errors and overdispersion: distinction between goals of prediction and insight into driving forces
-- Gaussian process model to squeeze out more information from points close in time
-- Implementing an R shiny app to generate the predictive distribution for the next hike
-- More data will allow the posterior to be updated again- narrowing the effect size estimates
-- Rethinking package makes it easy to write, execute and analyse output
-- how to model the bandwagon effect and the reverse bandwagon effect- given that a hike already has a certain number of signups what is the number of signups in the end going to be?
-- clustering of signups- people who know each other will sign up together.  
+In hindsight, the lackluster predictive precision of the model was inevitable, simply from the generative process assumed to produce the data. The implied generative process is that there is some pool of people who might potentially sign up, the size and composition of which might vary over time. Then there are various factors, both measured and unobserved, affecting the probability that any individual independently decides to sign up. Firsly, only a certain percentage of people in the pool will have nothing else planned on that day. Then only a certain percentage of those will be interested in the type of hike being organised. Of those people, some further percentage will drop out of the remaining pool because it's too cold, it might rain, or the hike starts too early. 
+
+All these effects will deviate from their long-run average for each hike. Then there are all the unmeasured and unmeasurable small effects that influence individual people's decisions in subtle ways. The errors multiply each other in this model, so that unlike a linear model with additive errors, the absolute error from the predicted number of signups will grow with the number of signups predicted. 
+
+This assumed generative process seems to agree with the way the residuals are distributed in the data. A different generative process is conceivable in which this would not be the case. Take for instance a small group of friends who agree to go on a hike together once every week. One person travels abroad every other week so they can only make it on alternate weekends. In this scenario you could predict turnout to hikes with zero error - there's no uncertainty about people's decisions to show up, unless of course people get sick sometimes or tend to flake!
+
+While a Gamma-Poisson process is an adequate statistical model for these data, there are some dynamics which are beyond the model's knowledge. Signups may be clumped in the sense that some people either all sign up together or none of them do. Not all people who sign up individually will do so independently either. Some people will only sign up if they see their friends are coming. Some people only sign up if they see that lots of other people are already coming, or might be reluctant to join a hike if there are very few people signed up. The 'bandwagon effect' likely plays a role in generating some massive turnouts to hikes in the past, such as one hike to see the blossoming fruit tree orchards which drew 100 people!
+
+There are models which can account for non-independence between successive events. For instance, there's the Hawkes model for processes with self-exciting behaviour (6). Another extension to the model would be to assume that signups are correlated between hikes that happen close together in time, because there are some unmeasured effects they both share. This correlation could be modeled using a Gaussian Process kernel (7).  
+
+It takes considerable effort to fit these models in the way I have done. If the goal were simply to make predictions, the added value over a machine learning approach like a random forest regression (8) seems moot. However, the goal of having interpretable parameter estimates and obtaining insight into the data generating process is achieved with the approach I've taken.
+
+For fun it might be a neat idea to make an R shiny-app (9) implementing the fitted model to make predictions about future hikes and use Bayesian updating to narrow down the effect sizes. Like an oracle, the predictions will be vague and almost never right on the mark!
+
+# Links
+
+1. https://mc-stan.org
+2. https://meteostat.net/en/
+3. https://github.com/rmcelreath/rethinking
+4. https://mc-stan.org/loo/reference/waic.html
+5. https://mc-stan.org/loo/reference/psis.html
+6. https://hawkeslib.readthedocs.io/en/latest/tutorial.html
+7. https://mc-stan.org/docs/stan-users-guide/gaussian-processes.html
+8. https://www.geeksforgeeks.org/machine-learning/random-forest-regression-in-python/
+9. https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/ 
+
+
+
   
-
-
