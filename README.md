@@ -134,7 +134,7 @@ While including weeks since the last hike does incur a slight penalty, the poste
 
 # Reflections
 
-In hindsight, the lackluster predictive precision of the model was inevitable, simply from the generative process assumed to produce the data. The implied generative process is that there is some pool of people who might potentially sign up, the size and composition of which might vary over time. Then there are various factors, both measured and unobserved, affecting the probability that any individual independently decides to sign up. Firsly, only a certain percentage of people in the pool will have nothing else planned on that day. Then only a certain percentage of those will be interested in the type of hike being organised. Of those people, some further percentage will drop out of the remaining pool because it's too cold, it might rain, or the hike starts too early. 
+In hindsight, the lackluster predictive precision of the model was inevitable, simply from the generative process assumed to produce the data. The implied generative process is that there is some pool of people who might potentially sign up, the size and composition of which might vary over time. Then there are various factors, both measured and unobserved, affecting the probability that any individual independently decides to sign up. Firsly, only a certain percentage of people in the pool will have nothing else planned on that day. Then only a certain percentage of those will be interested in the type of hike being organised. Of those people, some further percentage will drop out of the remaining pool because it's too cold, it might rain, or the hike starts too early etc. 
 
 All these effects will deviate from their long-run average for each hike. Then there are all the unmeasured and unmeasurable small effects that influence individual people's decisions in subtle ways. The errors multiply each other in this model, so that unlike a linear model with additive errors, the absolute error from the predicted number of signups will grow with the number of signups predicted. 
 
@@ -146,7 +146,7 @@ There are models which can account for non-independence between successive event
 
 It takes considerable effort to fit these models in the way I have done. If the goal were simply to make predictions, the added value over a machine learning approach like a random forest regression (8) seems moot. However, the goal of having interpretable parameter estimates and obtaining insight into the data generating process is achieved with the approach I've taken.
 
-For fun it might be a neat idea to make an R shiny-app (9) implementing the fitted model to make predictions about future hikes and use Bayesian updating to narrow down the effect sizes. Like an oracle, the predictions will be vague and almost never right on the mark!
+For fun it might be a neat idea to make an R shiny-app (9) implementing the fitted model to make predictions about future hikes and use Bayesian updating to narrow down the effect sizes. Like an oracle, the predictions will be vague and almost never right on the mark but may still be entertaining!
 
 # Links
 
