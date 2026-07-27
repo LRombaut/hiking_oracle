@@ -72,13 +72,10 @@ summary(modlm3.1)
 
 '''Model With 2 levels of Rain'''
 
-rain_level <- integer(124L)
-for(i in 1:length(rain_level)) rain_level[i] <- ifelse(dat$hourly_precipitation_peak_mm[i] > 0, 1, 0)
-
 d <- list(
   signups= dat$signups,
   typeid= as.numeric(as.factor(dat$special_category)),
-  rain= rain_level
+  rain= dat$rain_level
 )
 
 m3.1 <- ulam(
