@@ -1,5 +1,6 @@
 rm(list=ls())
 library(lubridate)
+library(ggplot2)
 
 #extract starting time as numeric in minutes/ date in Date format/ time in days since last hike as predictor
 hikes <- read.csv("hikes_data.csv")
@@ -15,7 +16,18 @@ for(i in 1:length(hikes$date)){
 }  
 hikes$date_last_hike[1] <- 0
 hikes$date_last_hike <- hikes$date_last_hike/7 - 1 #units of weeks since last hike iso days centred on 1 week
+hikes$date_since <- as.numeric(hikes$date - hikes$date[1]) #days since start of the hiking group
+hikes$date_since <- hikes$date_since/max(hikes$date_since)
 hikes$month <- month(hikes$date)
+hikes$year <- year(hikes$date)
+hikes$is_2022 <- as.integer(hikes$year == 2022)
+
+#winter effect
+is_winter <- numeric(155L)
+for(i in 1:length(is_winter)){
+  is_winter[i] <- switch(hikes$month[i], 1,1,0,0,0,0,0,0,0,0,1,1 ) #2 seasons starting november, december, january, february,..
+}
+hikes$is_winter <- is_winter
 
 #remove hikes that have a signup cap
 sum(!is.na(hikes$cap))
@@ -36,28 +48,16 @@ for(i in 1:length(dow)){
 table(dow)
 hikes$dow <- as.integer(dow)
 
-#examine data distributions and summary statistics
-par(mfrow=c(1,5))
-hist(hikes$signups[hikes$special_category == "regular"])
-hist(hikes$signups[hikes$special_category == "heavy_hike"])
-hist(hikes$signups[hikes$special_category == "city_trip"])
-hist(hikes$signups[hikes$special_category == "other_special"])
-hist(hikes$signups[hikes$special_category == "special_nature"])
-hist(hikes$signups[hikes$special_category == "night_hike"])
-hist(hikes$signups[hikes$special_category == "game"])
+#early start time effect
+morning_start <- hikes$start_time <= 960 & hikes$start_time >= 500
+sum(morning_start)
+dt <- hikes[morning_start,]  
+hist(dt$start_time, breaks=10)
+MST <- mean(dt$start_time)
+SDST <- sd(dt$start_time)
+hikes$start_time_std <- (hikes$start_time - MST)/SDST
+hikes$morning_start <- as.integer(morning_start)
 
-
-aggregate(signups ~ special_category, data=hikes, mean)
-aggregate(signups ~ special_category, data=hikes, var)
-table(hikes$special_category)
-
-
-hist(hikes$date_last_hike)
-hist(hikes$start_time)
-hist(hikes$distance_km)
-hist(hikes$hourly_precipitation_peak_mm)
-hist(hikes$Min.temp)
-hist(hikes$Max.temp)
 
 saveRDS(hikes, file="hikes.RDS")
 
